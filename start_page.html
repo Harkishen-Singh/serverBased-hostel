@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+    <title>Log In</title>
+    <meta charset="utf-8" >
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
+    <script src="jquery-3.3.1.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <style>
+        .forms{
+            border: 2px solid blue;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form action="http://0.0.0.0:1133/sent" method="get" style="text-align: center; padding: 20%;" >
+            <fieldset class="forms"><br/>
+                <h5 style="text-align: center;">Login Information</h5><hr/><br/><br/>
+                Regis. No. : <input type="text" name="reg_number" maxlength="15" style="text-align: center;"/>
+                <br/><br/>
+                Password : <input type="password" name="password" maxlength="30" style="text-align: center;" />
+                <br/><br/>
+                <input type="submit" value="Submit" style="text-align: center;" title="Sure your entered Info. is correct? Then, click here."/>
+                <a href="./signup.html" title="Signing for the first time. Click here.!"> New Account ?</a>
+                <br/><br/>
+            </fieldset>
+        
+        </form>
+    </div>
+</body>
+</html>
