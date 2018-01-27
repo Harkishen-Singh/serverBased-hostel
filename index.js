@@ -19,6 +19,7 @@ request({
 
 // signup form below
 var signup={
+	information:'',
 	name:"",
 	email:"",
 	password:"",
@@ -44,8 +45,10 @@ app.get('/sent', function(req, res){
 	res.end();
 });
 app.get('/signup_submit', function(req, res){
+	var name_combined =  req.query.user_first_name+"_"+req.query.user_second_name;
 	signup={
-		name:req.query.user_name,
+		information:"User Login Information",
+		name:name_combined,
 		email:req.query.user_email,
 		password:req.query.user_password,
 		reg_no:req.query.user_reg,
@@ -53,13 +56,19 @@ app.get('/signup_submit', function(req, res){
 		pin:req.query.user_pin
 	};
 	console.log(signup);
+	database_mongoDB_operations();
+	res.end();
 
 });
 
 // database connecting below
 function database_mongoDB_operations(){
 	mongo.connect(url, function(err, database){
-
+		var temp = database.db('BH_software');
+		temp.collection(signup.name).insertOne(signup, function(err){
+			if(err) console.log('Error occured while creating a collection named '+signup.name);
+		});
+		database.close();
 	});
 }
 var cache= 0;
