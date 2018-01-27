@@ -56,13 +56,13 @@ app.get('/signup_submit', function(req, res){
 		pin:req.query.user_pin
 	};
 	console.log(signup);
-	database_mongoDB_operations();
+	database_mongoDB_creations();
 	res.end();
 
 });
 
 // database connecting below
-function database_mongoDB_operations(){
+function database_mongoDB_creations(){
 	mongo.connect(url, function(err, database){
 		var temp = database.db('BH_software');
 		temp.collection(signup.name).insertOne(signup, function(err){
@@ -71,6 +71,7 @@ function database_mongoDB_operations(){
 		database.close();
 	});
 }
+
 var cache= 0;
 app.get('/', function(req, res){
 	res.sendFile(__dirname+'/start_page.html');
