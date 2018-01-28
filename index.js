@@ -33,7 +33,7 @@ app.get('/signup.html', function(req,res){
 });
 app.get('/submit_form', function(req, res){
 
-})
+});
 // starting or beginning page below
 
 app.get('/sent', function(req, res){
@@ -42,6 +42,7 @@ app.get('/sent', function(req, res){
 		pass:req.query.password
 	};
 	console.log(input);
+	database_mongoDB_operations();
 	res.end();
 });
 app.get('/signup_submit', function(req, res){
@@ -65,12 +66,42 @@ app.get('/signup_submit', function(req, res){
 function database_mongoDB_creations(){
 	mongo.connect(url, function(err, database){
 		var temp = database.db('BH_software');
-		temp.collection(signup.name).insertOne(signup, function(err){
+		temp.collection(signup.reg_no).insertOne(signup, function(err){
 			if(err) console.log('Error occured while creating a collection named '+signup.name);
 		});
 		database.close();
 	});
 }
+// databse to be used while the user logins in it
+
+function database_mongoDB_operations(){
+	mongo.connect(url, function(err, database){
+		var temp = database.db('BH_software');
+		temp.collection(input.reg).find({information: "User Login Information"}).toArray(function(err, result){
+			// performing checks below
+
+			//console.log(result[0]);
+			//console.log(result[0].password);
+			//console.log(result[0].reg_no);
+			if(err) console.log('Error occured while searching a colllection');
+
+			else{
+				console.log('Checking...');
+				//console.log(result[0].password);
+				//console.log(input.pass);
+				if(result[0].password==input.pass){
+					console.log('Account collection connected..!');
+				}
+				else{
+					console.log('Account connection failed..!');
+				}
+				//console.log(result);
+			}
+		});
+		database.close();
+	});
+}
+
 
 var cache= 0;
 app.get('/', function(req, res){
@@ -82,4 +113,4 @@ var server=app.listen(port, '0.0.0.0',function(){
 	console.log("Server running at address "+server.address().address);
 	console.log('port '+server.address().port);
 	console.log('host '+server.address().host);
-})
+});
