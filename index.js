@@ -86,12 +86,12 @@ var result_database_store={
 function database_mongoDB_operations(){
 	mongo.connect(url, function(err, database){
 		var temp = database.db('BH_software');
-		temp.collection(input.reg).find({information: "User Login Information"}).toArray(function(err, result){
+		/*var check = temp.getCollectionNames();
+		console.log("List of collections below :\n\n"+check);*/
+		temp.collection(input.reg).find({information: "User Login Information"}
+		).toArray(function(err, result){
 			// performing checks below
 
-			//console.log(result[0]);
-			//console.log(result[0].password);
-			//console.log(result[0].reg_no);
 			if(err) console.log('Error occured while searching a colllection');
 
 			else{
@@ -116,7 +116,7 @@ function database_mongoDB_operations(){
 				//console.log(result);
 			}
 		});
-		console.log("saved at result_database_store ,, see below \n\n"+result_database_store);
+		//console.log("saved at result_database_store ,, see below \n\n"+result_database_store);
 		database.close();
 	});
 }
