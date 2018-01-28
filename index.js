@@ -73,6 +73,15 @@ function database_mongoDB_creations(){
 	});
 }
 // databse to be used while the user logins in it
+var result_database_store={
+	information:'',
+	name:"",
+	email:"",
+	password:"",
+	reg_no:"",
+	mobile:"",
+	pin:0
+};
 
 function database_mongoDB_operations(){
 	mongo.connect(url, function(err, database){
@@ -86,6 +95,15 @@ function database_mongoDB_operations(){
 			if(err) console.log('Error occured while searching a colllection');
 
 			else{
+				/*result_database_store={
+					information:result[0].information,
+					name:result[0].name,
+					email:result[0].email,		// RISHAV AGARWAL BHAYA CHECK
+					password:result[0].password,
+					reg_no:result[0].reg_no,
+					mobile:result[0].mobile,
+					pin:result[0].pin
+				};*/
 				console.log('Checking...');
 				//console.log(result[0].password);
 				//console.log(input.pass);
@@ -98,6 +116,7 @@ function database_mongoDB_operations(){
 				//console.log(result);
 			}
 		});
+		console.log("saved at result_database_store ,, see below \n\n"+result_database_store);
 		database.close();
 	});
 }
