@@ -63,7 +63,30 @@ app.get('/signup_submit', function(req, res){
 	res.end();
 
 });
-app.get('/addRecord')
+var counter={
+	regis_counter:""
+};
+app.get('/admin', function(req, res){
+	res.sendFile(__dirname+"/html/counter.html");
+});
+app.get('/addRecord', function(req,res){
+	counter={
+		regis_counter:req.query.counter_regis,
+		date_counter:req.query.counter_date
+	};
+	console.log(counter);
+	var insertion={
+		information:"Record",
+
+	}/*
+	mongo.connect(url, function(err, d){
+		var c=d.db("BH_software");
+		c.collection(counter.regis_counter).insertOne();
+	})*/
+	res.end(); // this function is not made for rendernig. if u want to render here, then remove this
+});
+
+
 // database connecting below
 function database_mongoDB_creations(){
 	mongo.connect(url, function(err, database){
