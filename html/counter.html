@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+    <title>Log In</title>
+    <meta charset="utf-8" >
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css"/>
+    <script src="jquery-3.3.1.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <style>
+        .central{
+            text-align: center;
+            margin-top: 20%;
+            
+        }
+    </style>
+</head>
+    
+<body>
+    <div class="central container">
+        <div class="appending">
+            <form action='http://192.168.225.44:1133/addRecord' method="get" style="padding: 5%; border: 2px solid blue;">
+                <h4>Registration Number</h4><br/>
+                <input type="text" name="counter_regis" maxlength="10" style="text-align: center;"/><br/><br/>
+                Date : <input type="date" name="counter_date" /> <br/><br/>
+                <input type="submit" value="Add"/>
+            </form>
+        </div>
+    </div> 
+</body>
+</html>

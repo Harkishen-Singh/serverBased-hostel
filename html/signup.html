@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+    <title>Log In</title>
+    <meta charset="utf-8" >
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
+    <script src="jquery-3.3.1.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <style>
+        .forms{
+            border: 2px solid blue;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <form action="http://192.168.225.44:1133/signup_submit" method="get" style="text-align: center; padding-left: 20%;padding-right: 40%;">
+                <fieldset class="forms" style="padding:30%;">
+                <h5 style="text-align: center;">Fill Up the Required Information</h5>
+                <p>Please Donot leave any spaces while filling any field</p>
+                First Name : <input type="text" value="" name="user_first_name" style="text-align: center;"/><br/><br/>
+                Second Name : <input type="text" value="" name="user_second_name" style="text-align: center;"/><br/><br/>
+                EMail Id : <input type="text" value="" name="user_email" style="text-align: center;"/><br/><br/>
+                Password : <input type="password" value="" name="user_password" style="text-align: center;"/><br/><br/>
+                Regis. No. : <input type="text" name="user_reg" style="text-align: center;"/><br/><br/>
+                Mobile No. : <input type="text" name="user_mobile" style="text-align: center;"/><br/><br/>
+                4-digit-Pin : <input type="number" name="user_pin" style="text-align: center;"/><br/><br/>
+                <input type="submit" value="Submit" style="text-align: center;" /><br/>
+                </fieldset>
+            
+            </form>
+            
+        </div>
+    </div>
+</body>
+</html>

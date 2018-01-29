@@ -29,7 +29,7 @@ var signup={
 };
 var startup=0;
 app.get('/signup.html', function(req,res){
-	res.sendFile(__dirname+"/signup.html");
+	res.sendFile(__dirname+"/html/signup.html");
 });
 app.get('/submit_form', function(req, res){
 
@@ -63,7 +63,7 @@ app.get('/signup_submit', function(req, res){
 	res.end();
 
 });
-
+app.get('/addRecord')
 // database connecting below
 function database_mongoDB_creations(){
 	mongo.connect(url, function(err, database){
@@ -102,7 +102,9 @@ function database_mongoDB_operations(req, res){
 				//console.log(input.pass);
 				if(result[0].password==input.pass){
 					console.log('Account collection connected..!');
-					res.render(__dirname+"/dashboard.ejs", {name:result[0].name, reg_no:result[0].reg_no, email:result[0].email});
+					res.render(__dirname+"/dashboard.ejs", {
+						name:result[0].name, reg_no:result[0].reg_no, email:result[0].email
+					});
 
 				}
 				else{
@@ -126,7 +128,7 @@ function personal_head(){
 
 var cache= 0;
 app.get('/', function(req, res){
-	res.sendFile(__dirname+'/start_page.html');
+	res.sendFile(__dirname+'/html/start_page.html');
 	count++;
 	console.log('user request number : '+ count);
 });
