@@ -42,8 +42,10 @@ app.get('/sent', function(req, res){
 		pass:req.query.password
 	};
 	console.log(input);
-	database_mongoDB_operations();
-	res.end();
+	database_mongoDB_operations(req, res);
+	
+	//donot include res.end(); here, since it will cause an error, as the document is rendering, but u ended the process.
+
 });
 app.get('/signup_submit', function(req, res){
 	var name_combined =  req.query.user_first_name+"_"+req.query.user_second_name;
@@ -83,7 +85,7 @@ var result_database_store={
 	pin:0
 };
 
-function database_mongoDB_operations(){
+function database_mongoDB_operations(req, res){
 	mongo.connect(url, function(err, database){
 		var temp = database.db('BH_software');
 		/*var check = temp.getCollectionNames();
@@ -95,20 +97,13 @@ function database_mongoDB_operations(){
 			if(err) console.log('Error occured while searching a colllection');
 
 			else{
-				/*result_database_store={
-					information:result[0].information,
-					name:result[0].name,
-					email:result[0].email,		// RISHAV AGARWAL BHAYA CHECK
-					password:result[0].password,
-					reg_no:result[0].reg_no,
-					mobile:result[0].mobile,
-					pin:result[0].pin
-				};*/
 				console.log('Checking...');
 				//console.log(result[0].password);
 				//console.log(input.pass);
 				if(result[0].password==input.pass){
 					console.log('Account collection connected..!');
+					res.render(__dirname+"/dashboard.ejs", {name:result[0].name, reg_no:result[0].reg_no, email:result[0].email});
+
 				}
 				else{
 					console.log('Account connection failed..!');
@@ -120,7 +115,14 @@ function database_mongoDB_operations(){
 		database.close();
 	});
 }
+function personal_head(){
+	mongo.connect(url, function(err, database2){
+		var x=database2.db("BH_software");
+		x.collection(input.reg).find({information: "User Login Information"}).toArray(function(err, result2){
 
+		})
+	})
+}
 
 var cache= 0;
 app.get('/', function(req, res){
