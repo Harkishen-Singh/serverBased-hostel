@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+    <title>Administrator</title>
+    <meta charset="utf-8" >
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css"/>
+    <script src="jquery-3.3.1.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" >
+    <style>
+        .stu_info{
+            border: 2px green solid;
+            height: 500px;
+        }
+    </style>
+</head>
+    
+<body>
+    <div class="container">
+        <h2 style="text-align: center; padding-top: 5%;"> DASHBOARD </h2>
+        <div class="row">
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="stu_info">
+                    <h4 style="padding-top: 5%; text-align: center;">Registered Students</h4>
+                    <hr/>
+                    <br/>
+                    <ol>
+                    <%for(var i=0;i< <%= r %>.length; i++){ %>
+                        <li><%= r[i].name%></li>    
+                    <% } %>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

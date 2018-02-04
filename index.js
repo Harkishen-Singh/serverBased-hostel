@@ -66,7 +66,7 @@ app.get('/signup_submit', function(req, res){
 var counter={
 	regis_counter:""
 };
-app.get('/admin', admin_page);
+app.get('/entry', admin_page);
 function admin_page(req, res){
 	res.sendFile(__dirname+"/html/counter.html");
 }
@@ -93,12 +93,6 @@ app.get('/addRecord', function(req,res){
 		d.close();
 	});
 	admin_page(req, res);
-	/*
-	mongo.connect(url, function(err, d){
-		var c=d.db("BH_software");
-		c.collection(counter.regis_counter).insertOne();
-	})*/
-	// res.end(); // this function is not made for rendernig. if u want to render here, then remove this
 });
 
 
@@ -175,3 +169,18 @@ var server=app.listen(port, '0.0.0.0',function(){
 	console.log('port '+server.address().port);
 	console.log('host '+server.address().host);
 });
+app.get('/adminPage', adminFunction);
+function adminFunction(req,res){
+	/* connecting to database for showing information to the admin */
+	mongo.connect(url, function(err, database){
+		var a= database.db("BH_software");
+		a.listCollections().toArray(function(err, r){
+			for(var i=0; i<r.length;i++)
+			console.log(r[i].name);
+			console.log(r.length);
+			res.render(__dirname +"/embeded-JS/adminPage.ejs", {rr: r.length});
+		});
+
+		//a.collection()
+	});	
+}
