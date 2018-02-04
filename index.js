@@ -66,24 +66,39 @@ app.get('/signup_submit', function(req, res){
 var counter={
 	regis_counter:""
 };
-app.get('/admin', function(req, res){
+app.get('/admin', admin_page);
+function admin_page(req, res){
 	res.sendFile(__dirname+"/html/counter.html");
-});
+}
 app.get('/addRecord', function(req,res){
 	counter={
-		regis_counter:req.query.counter_regis,
-		date_counter:req.query.counter_date
+		regis:req.query.counter_regis,
+		date_time:req.query.counter_date,
+
 	};
 	console.log(counter);
 	var insertion={
 		information:"Record",
-
-	}/*
+		time: counter.date_time,
+		amount: "DEFAULT"
+	}
+	mongo.connect(url,function(err,d){
+		var x=d.db("BH_software");
+		try{
+			x.collection(counter.regis).insertOne(insertion);
+		}
+		catch(err){
+			console.log('Didnt find the record at the entered regis '+counter.regis);
+		}
+		d.close();
+	});
+	admin_page(req, res);
+	/*
 	mongo.connect(url, function(err, d){
 		var c=d.db("BH_software");
 		c.collection(counter.regis_counter).insertOne();
 	})*/
-	res.end(); // this function is not made for rendernig. if u want to render here, then remove this
+	// res.end(); // this function is not made for rendernig. if u want to render here, then remove this
 });
 
 
