@@ -14,3 +14,4 @@
     <li> Added record appeding when any user orders a meal, which needs to be entered by the admin in the url : “0.0.0.0:1133/entry”, provided u are runing on the local server on your computer.</li>
  </ol>
 	
+<h5>MOST IMPORTANT URL FOR EJS UNDERSTANDING : <a href="https://stackoverflow.com/questions/41369780/using-ajax-in-node-js-with-ejs" target="_blank">StackOverFlow</a>
