@@ -2,8 +2,7 @@ var mongo=require('mongodb').MongoClient;
 var express=require('express');
 var fs=require('fs'), url="mongodb://127.0.0.1:27017";
 var app = express();
-var count=0, port=1133, 
-	input={
+var count=0, port=1133, input={
 	reg:"",
 	pass:"",
 	check:false
@@ -67,7 +66,8 @@ app.get('/signup_submit', function(req, res){
 
 });
 var counter={
-	regis_counter:""
+	regis_counter:"",
+	date_time:''
 };
 app.get('/entry', admin_page);
 function admin_page(req, res){
@@ -121,6 +121,7 @@ var result_database_store={
 };
 
 function database_mongoDB_operations(req, res){
+	try{
 	mongo.connect(url, function(err, database){
 		var temp = database.db('BH_software');
 		/*var check = temp.getCollectionNames();
@@ -145,6 +146,7 @@ function database_mongoDB_operations(req, res){
 				}
 				else{
 					console.log('Account connection failed..!');
+					res.sendFile(__dirname+'/html/start_page_wrong.html');
 				}
 				//console.log(result);
 			}
@@ -152,7 +154,14 @@ function database_mongoDB_operations(req, res){
 
 		//console.log("saved at result_database_store ,, see below \n\n"+result_database_store);
 		database.close();
+		
+	
 	});
+	}
+	catch(err){
+			console.log('Account connection failed..!');
+			res.sendFile(__dirname+'/html/start_page_wrong.html');
+		}
 }
 function personal_head(){
 	mongo.connect(url, function(err, database2){
@@ -162,7 +171,6 @@ function personal_head(){
 		})
 	})
 }
-
 var cache= 0;
 app.get('/', function(req, res){
 	res.sendFile(__dirname+'/html/start_page.html');
@@ -230,4 +238,3 @@ function adminFunction(req,res){
 	});	
 }
 
-app.get()
