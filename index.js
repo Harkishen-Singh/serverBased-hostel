@@ -136,6 +136,7 @@ function database_mongoDB_operations(req, res){
 				console.log('Checking...');
 				//console.log(result[0].password);
 				//console.log(input.pass);
+				try{
 				if(result[0].password==input.pass){
 					input.check=true;
 					console.log('Account collection connected..!');
@@ -144,11 +145,15 @@ function database_mongoDB_operations(req, res){
 					});
 
 				}
-				else{
+				else{/*
 					console.log('Account connection failed..!');
-					res.sendFile(__dirname+'/html/start_page_wrong.html');
+					res.sendFile(__dirname+'/html/start_page_wrong.html');*/
 				}
-				//console.log(result);
+			}
+			catch(error){
+				console.log('Account connection failed..!');
+			res.sendFile(__dirname+'/html/start_page_wrong.html');
+			}
 			}
 		});
 
