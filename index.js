@@ -172,13 +172,23 @@ var server=app.listen(port, '0.0.0.0',function(){
 app.get('/adminPage', adminFunction);
 function adminFunction(req,res){
 	/* connecting to database for showing information to the admin */
-	mongo.connect(url, function(err, database){
-		var a= database.db("BH_software");
+	mongo.connect(url, function(err, database3){
+		var a= database3.db("BH_software");
 		a.listCollections().toArray(function(err, r){
-			for(var i=0; i<r.length;i++)
-			console.log(r[i].name);
-			console.log(r.length);
-			res.render(__dirname +"/embeded-JS/adminPage.ejs", {rr: r.length});
+			for(var i=0; i<(r.length/10);i++){
+
+				res.render(__dirname +"/embeded-JS/adminPage.ejs", {
+					res: r[i].name,
+					res1:r[i+1].name,
+					res2:r[i+2].name,
+					res3:r[i+3].name,
+					res4:r[i+4].name,
+					res5:r[i+5].name,
+					res6:r[i+6].name,
+					rr:r.length
+				});
+				
+			}
 		});
 
 		//a.collection()
