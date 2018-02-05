@@ -11,25 +11,42 @@
             border: 2px green solid;
             
         }
+        
     </style>
+    <script>
+        $(document).ready(function(){
+            $("h4#regis").hide();
+            $("ol#regis2").hide();
+            $(".clicked_regis").toggled(function(){
+                $("h4#regis").show();
+                $("ol#regis2").show();
+                });
+            });
+    </script>
 </head>
     
 <body>
     <div class="container">
-        <h2 style="text-align: center; padding-top: 5%;"> DASHBOARD </h2>
+        <h2 style="text-align: center; padding-top: 5%;"> ADMINISTRATOR DASHBOARD </h2>
         <div class="row">
-            <div class="col-md-6 col-sm-12 col-xs-12">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <h3 style="text-align: left;color: blue;">Information on administrator</h3>
+                <hr/>
+                <p>Name :  <br/> <br/>Email ID :  </p>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="stu_info">
-                    <h4 style="padding-top: 5%; text-align: center;">Registered Students</h4>
+                    <h4 style=" text-align: center;"> Registered Students</h4>
                     <hr/>
                     <br/>
-                     Number of Students Registered : <%= rr %>
+                     <p> Number of Students Registered : <%= rr %> </p>
                     <br/>
+                    <input type="button" name="Show Registered Users" class="clicked_regis">
                     <br/>
-                    <h4 style="padding-top: 5%; text-align: center;">List</h4><br/>
+                    <h4 style=" text-align: center;" id="regis">List</h4><br/>
                     
                     
-                    <ol>
+                    <ol id="regis2">
                         <% for(var i=0; i<send.length; i++){ %>
                         <li><%= send[i].name %></li><br/>
                         <% } %>
