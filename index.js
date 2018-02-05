@@ -2,9 +2,11 @@ var mongo=require('mongodb').MongoClient;
 var express=require('express');
 var fs=require('fs'), url="mongodb://127.0.0.1:27017";
 var app = express();
-var count=0, port=1133, input={
+var count=0, port=1133, 
+	input={
 	reg:"",
-	pass:""
+	pass:"",
+	check:false
 };
 /*
 var request=require('request'), obj={reg:"", pass:""};
@@ -39,7 +41,8 @@ app.get('/submit_form', function(req, res){
 app.get('/sent', function(req, res){
 	input={
 		reg:req.query.reg_number,
-		pass:req.query.password
+		pass:req.query.password,
+		check:false
 	};
 	console.log(input);
 	database_mongoDB_operations(req, res);
@@ -133,6 +136,7 @@ function database_mongoDB_operations(req, res){
 				//console.log(result[0].password);
 				//console.log(input.pass);
 				if(result[0].password==input.pass){
+					input.check=true;
 					console.log('Account collection connected..!');
 					res.render(__dirname+"/dashboard.ejs", {
 						name:result[0].name, reg_no:result[0].reg_no, email:result[0].email
@@ -145,6 +149,7 @@ function database_mongoDB_operations(req, res){
 				//console.log(result);
 			}
 		});
+
 		//console.log("saved at result_database_store ,, see below \n\n"+result_database_store);
 		database.close();
 	});
@@ -224,3 +229,5 @@ function adminFunction(req,res){
 		//a.collection()
 	});	
 }
+
+app.get()
