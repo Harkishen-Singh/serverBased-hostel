@@ -15,3 +15,11 @@
  </ol>
 	
 <h5>MOST IMPORTANT URL FOR EJS UNDERSTANDING : <a href="https://stackoverflow.com/questions/41369780/using-ajax-in-node-js-with-ejs" target="_blank">StackOverFlow</a>
+<br/>MAIN CODE BELOW<br/>
+<code><% for (var i = 0; i< order.length; i++) { %>
+    <div id="champ">
+        <span><%= order[i].id %></span>
+        <span><%= order[i].name %></span>
+        <span><%= order[i].drink %></span>
+    </div>
+		<% } %></code>
