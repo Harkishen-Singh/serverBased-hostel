@@ -1,3 +1,2 @@
-<html>
-<h2 style="color:green;text-align:center">Boys Hostel Software </h2>
-</html>
+# serverBased-hostel
+Currently under development, highly unstable. No one is allowed to share this, without prior information to me.
