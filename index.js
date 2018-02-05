@@ -143,6 +143,7 @@ function database_mongoDB_operations(req, res){
 					res.render(__dirname+"/dashboard.ejs", {
 						name:result[0].name, reg_no:result[0].reg_no, email:result[0].email
 					});
+					Details_On_User();
 
 				}
 				else{/*
@@ -168,14 +169,28 @@ function database_mongoDB_operations(req, res){
 			res.sendFile(__dirname+'/html/start_page_wrong.html');
 		}
 }
-function personal_head(){
-	mongo.connect(url, function(err, database2){
-		var x=database2.db("BH_software");
-		x.collection(input.reg).find({information: "User Login Information"}).toArray(function(err, result2){
-
-		})
-	})
+function Details_On_User(){
+	mongo.connect(url, function(err, d){
+		var d2= d.db('BH_software');
+		d2.collection(input.reg).find({information: "Record"}).toArray(function(err, result){
+			
+		});
+	});
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var cache= 0;
 app.get('/', function(req, res){
 	res.sendFile(__dirname+'/html/start_page.html');
