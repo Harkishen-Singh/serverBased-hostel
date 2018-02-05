@@ -9,7 +9,7 @@
     <style>
         .stu_info{
             border: 2px green solid;
-            height: 500px;
+            
         }
     </style>
 </head>
@@ -28,16 +28,13 @@
                     <br/>
                     <h4 style="padding-top: 5%; text-align: center;">List</h4><br/>
                     
-                    <ul>
-                        <li><%=res%></li>
-                        <li><%=res1%></li>
-                        <li><%=res2%></li>
-                        <li><%=res3%></li>
-                        <li><%=res4%></li>
-                        <li><%=res5%></li>
-                        <li><%=res6%></li>
-                    </ul>
                     
+                    <ol>
+                        <% for(var i=0; i<send.length; i++){ %>
+                        <li><%= send[i].name %></li><br/>
+                        <% } %>
+                    </ol>
+
 
                 </div>
             </div>

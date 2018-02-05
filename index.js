@@ -209,12 +209,12 @@ function adminFunction(req,res){
 		var a= database3.db("BH_software");
 		a.listCollections().toArray(function(err, r){
 			var i=0;
-			//console.log(r);
-			//console.log(r.name);
-			//res.render(__dirname +"/embeded-JS/adminPage.ejs",{ send: r})
+			console.log(r);
+			console.log(r.name);
+			res.render(__dirname +"/embeded-JS/adminPage.ejs",{ rr: r.length, send: r})
 			for(i=0; i<(r.length/7);i++){
 
-				res.render(__dirname +"/embeded-JS/adminPage.ejs", {
+				/*res.render(__dirname +"/embeded-JS/adminPage.ejs", {
 					res: r[i].name,
 					res1:r[i+1].name,
 					res2:r[i+2].name,
@@ -223,7 +223,7 @@ function adminFunction(req,res){
 					res5:r[i+5].name,
 					res6:r[i+6].name,
 					rr:r.length
-				});
+				});*/
 
 			}
 
