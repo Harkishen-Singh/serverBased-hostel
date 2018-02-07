@@ -2,6 +2,7 @@ var mongo=require('mongodb').MongoClient;
 var express=require('express');
 var fs=require('fs'), url="mongodb://127.0.0.1:27017";
 var app = express();
+//module.exports = url;
 var count=0, port=1133, input={
 	reg:"",
 	pass:"",
@@ -169,11 +170,15 @@ function database_mongoDB_operations(req, res){
 			res.sendFile(__dirname+'/html/start_page_wrong.html');
 		}
 }
+/*
+app.get('/date', function(req, res){
+	console.log('Entered date is : ' +req.query.date);
+});*/
 function Details_On_User(){
 	mongo.connect(url, function(err, d){
 		var d2= d.db('BH_software');
 		d2.collection(input.reg).find({information: "Record"}).toArray(function(err, result){
-			
+			//console.log(result);
 		});
 	});
 }
@@ -190,7 +195,6 @@ app.get('/', function(req, res){
 var server=app.listen(port, '0.0.0.0',function(){
 	console.log("Server running at address "+server.address().address);
 	console.log('port '+server.address().port);
-	console.log('host '+server.address().host);
 });
 app.get('/adminPage', adminFunction);
 function adminFunction(req,res){
@@ -198,50 +202,7 @@ function adminFunction(req,res){
 	mongo.connect(url, function(err, database3){
 		var a= database3.db("BH_software");
 		a.listCollections().toArray(function(err, r){
-			var i=0;
-			//console.log(r);
-			//console.log(r.name);
 			res.render(__dirname +"/embeded-JS/adminPage.ejs",{ rr: r.length, send: r})
-			/*for(i=0; i<(r.length/7);i++){
-
-				res.render(__dirname +"/embeded-JS/adminPage.ejs", {
-					res: r[i].name,
-					res1:r[i+1].name,
-					res2:r[i+2].name,
-					res3:r[i+3].name,
-					res4:r[i+4].name,
-					res5:r[i+5].name,
-					res6:r[i+6].name,
-					rr:r.length
-				});
-
-			}*/
-
-			// experimental below
-			
-			if(i==(r.length/7)){
-					if(r.length%7==1){
-						res.render(__dirname +"/embeded-JS/adminPage.ejs", {res:r[(i)*7].name});
-					}
-					else if(r.length%7==2)
-						res.render(__dirname +"/embeded-JS/adminPage.ejs", {res:r[(i)*7].name,
-							res1:r[(i*7)+1].name});
-					else if(r.length%7==3)
-						res.render(__dirname +"/embeded-JS/adminPage.ejs", {res:r[(i)*7].name,
-							res1:r[(i*7)+1].name,res2:r[(i*7)+2].name,});
-					else if(r.length%7==4)
-						res.render(__dirname +"/embeded-JS/adminPage.ejs", {res:r[(i)*7].name,
-							res1:r[(i*7)+1].name,res2:r[(i*7)+2].name,res3:r[(i*7)+3].name});
-					else if(r.length%7==5)
-						res.render(__dirname +"/embeded-JS/adminPage.ejs", {res:r[(i)*7].name,
-							res1:r[(i*7)+1].name,res2:r[(i*7)+2].name,res3:r[(i*7)+3].name,res4:r[(i*7)+4].name});
-					else if(r.length%7==6)
-						res.render(__dirname +"/embeded-JS/adminPage.ejs", {res:r[(i)*7].name,
-							res1:r[(i*7)+1].name,res2:r[(i*7)+2].name,res3:r[(i*7)+3].name,res4:r[(i*7)+4].name,
-							res5:r[(i*7)+5].name});
-			}
-			// experimental ends here
-
 		});
 
 		//a.collection()
