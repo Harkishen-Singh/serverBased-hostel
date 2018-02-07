@@ -14,11 +14,16 @@
     </style>
 </head>
 <body>
-    <h2 style="text-align: center;">Account DashBoard</h2>
-    <h3 class="desccription" style="text-align: left;"><%= name%></h3>
-    <h3 class="desccription" style="text-align: left;"><%= reg_no%></h3>
-    <h3 class="desccription" style="text-align: left;"><%= email%></h3>
-
+    <h2 style="text-align: center;">Account DashBoard</h2><br/><hr/><br/>
+    <h3 class="desccription" style="text-align: left;">Name : <%= name%></h3>
+    <h3 class="desccription" style="text-align: left;">Registration Number : <%= reg_no%></h3>
+    <h3 class="desccription" style="text-align: left;">Email Id : <%= email%></h3><br/><hr/>
+    <br/>
+    <form action="http://0.0.0.0:1133/date">
+    <h4>View your meal record Day and time wise</h4><br/>
+    <input type="date" name="date" />
+    <input type="submit" />
+    </form>
 </body>    
 
 </html>
