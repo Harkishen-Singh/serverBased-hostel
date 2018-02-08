@@ -44,7 +44,7 @@ app.get('/sent', function(req, res){
 		pass:req.query.password,
 		check:false
 	};
-	console.log(input);
+	//console.log(input);
 	database_mongoDB_operations(req, res);
 	
 	//donot include res.end(); here, since it will cause an error, as the document is rendering, but u ended the process.
@@ -62,7 +62,7 @@ app.get('/signup_submit', function(req, res){
 		mobile:req.query.user_mobile,
 		pin:req.query.user_pin
 	};
-	console.log(signup);
+	//console.log(signup);
 	database_mongoDB_creations();
 	res.end();
 
@@ -122,7 +122,7 @@ app.get('/addRecord', function(req, res) {
 			console.log('objFinder.month is '+ objFinder.month);
 			console.log('objFinder.date is '+ objFinder.date);
 		*/
-		console.log(objFinder);
+		//console.log(objFinder);
 
 		var objReplacer={ $set: {
 			information: 'Record',
@@ -132,12 +132,12 @@ app.get('/addRecord', function(req, res) {
 			month: stringDate.substr(5,2),
 			status: 'MEAL',
 			amount: 'DEFAULT'
-		}};console.log(objReplacer);
+		}};//console.log(objReplacer);
 		x.collection(counter.regis).updateOne(objFinder, objReplacer, function(err, res) {
 			if(err) {console.log('Error occured while updating an obj document in mongodb');
 			throw err;}
 			else{
-				console.log('One obj updated');
+				//console.log('One obj updated');
 			}
 		});
 	});
@@ -151,7 +151,7 @@ function database_mongoDB_creations(){
 		temp.collection(signup.reg_no).insertOne(signup, function(err){
 			if(err) console.log('Error occured while creating a collection named '+signup.name);
 		});
-		console.log('this is the month ' + (signup.dateOfSignUp).substr(5,2));
+		//console.log('this is the month ' + (signup.dateOfSignUp).substr(5,2));
 		var m=(signup.dateOfSignUp).substr(5,2);
 		initializer(signup.reg_no, m.toString());
 		database.close();
