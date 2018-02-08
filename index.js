@@ -73,6 +73,7 @@ app.get('/entry', admin_page);
 function admin_page(req, res){
 	res.sendFile(__dirname+"/html/counter.html");
 }
+/*
 app.get('/addRecord', function(req,res){
 	counter={
 		regis:req.query.counter_regis,
@@ -83,6 +84,7 @@ app.get('/addRecord', function(req,res){
 	var insertion={
 		information:"Record",
 		time: counter.date_time,
+		status: ''
 		amount: "DEFAULT"
 	}
 	mongo.connect(url,function(err,d){
@@ -96,6 +98,28 @@ app.get('/addRecord', function(req,res){
 		d.close();
 	});
 	admin_page(req, res);
+});*/
+app.get('/addRecord', function(req, res) {
+	counter= { regis: req.query.counter_regis, date_time: req.query.counter_date };
+	mongo.connect(url, function(err, data) {
+		var x= data.db('BH_software');
+		var objFinder = {
+			information: 'Record',
+			time: '',
+			date: 
+			status: 'NA',
+			amount: 'DEFAULT'
+		};
+		var objReplacer= {
+			information: 'Record',
+			time: counter.date_time,
+			status: 'MEAL',
+			amount: 'DEFAULT'
+		};
+		x.collection(counter.regis).updateOne(objFinder, objReplacer, function(err) {
+			console.log('Error occured while updating an obj document in mongodb');
+		});
+	});
 });
 
 
@@ -140,7 +164,7 @@ function database_mongoDB_operations(req, res){
 				if(result[0].password==input.pass){
 					input.check=true;
 					console.log('Account collection connected..!');
-					res.render(__dirname+"/dashboard.ejs", {
+					res.render(__dirname+"/embeded-JS/dashboard.ejs", {
 						name:result[0].name, reg_no:result[0].reg_no, email:result[0].email
 					});
 					Details_On_User();

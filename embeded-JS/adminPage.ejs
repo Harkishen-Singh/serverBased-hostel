@@ -15,9 +15,9 @@
     </style>
     <script>
         $(document).ready(function(){
-            $("h4#regis").hide();
-            $("ol#regis2").hide();
-            $(".clicked_regis").toggled(function(){
+            $("#regis").hide();
+            $("#regis2").hide();
+            $(".clicked_regis").toggle(function(){
                 $("h4#regis").show();
                 $("ol#regis2").show();
                 });
@@ -45,10 +45,10 @@
                     <br/>
                      <p> Number of Students Registered : <%= rr %> </p>
                     <br/>
-                    <input type="button" name="Show Registered Users" class="clicked_regis">
+                    <input type="button" name="" class="clicked_regis" value="Show Registered Users" />
                     <br/>
                     <h4 style=" text-align: center;" id="regis">List</h4><br/>
-                    
+
                     
                     <ol id="regis2">
                         <% for(var i=0; i<send.length; i++){ %>
