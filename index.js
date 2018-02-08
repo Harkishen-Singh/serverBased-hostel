@@ -56,6 +56,7 @@ app.get('/signup_submit', function(req, res){
 		information:"User Login Information",
 		name:name_combined,
 		email:req.query.user_email,
+		dateOfSignUp: req.query.signDate,
 		password:req.query.user_password,
 		reg_no:req.query.user_reg,
 		mobile:req.query.user_mobile,
@@ -136,7 +137,9 @@ function database_mongoDB_creations(){
 		temp.collection(signup.reg_no).insertOne(signup, function(err){
 			if(err) console.log('Error occured while creating a collection named '+signup.name);
 		});
-		initializer(signup.reg_no);
+		console.log('this is the month ' + (signup.dateOfSignUp).substr(5,2));
+		var m=(signup.dateOfSignUp).substr(5,2);
+		initializer(signup.reg_no, m.toString());
 		database.close();
 	});
 }
