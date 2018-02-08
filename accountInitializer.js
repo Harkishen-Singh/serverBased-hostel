@@ -262,8 +262,6 @@ function init(regis, month2) {
 		var x= d.db('BH_software');
 		// month assignment below
 		for(var i=1;i<=30; i++) {
-			console.log('this is the received month '+ month2);
-			console.log(objMany[i].date);
 			objMany[i].month= month2;
 
 		}

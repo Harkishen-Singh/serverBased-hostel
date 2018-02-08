@@ -111,20 +111,34 @@ app.get('/addRecord', function(req, res) {
 		var l=stringDate.length; var dateS=stringDate.substr(8,2);
 		var objFinder = {
 			information: 'Record',
+			count: parseInt(stringDate.substr(8,2)),
 			time: '',
 			date: dateS,
+			month: stringDate.substr(5,2),
 			status: 'NA',
 			amount: 'DEFAULT'
 		};
-		var objReplacer= {
+		/*	console.log('objFinder.count is '+ objFinder.count);
+			console.log('objFinder.month is '+ objFinder.month);
+			console.log('objFinder.date is '+ objFinder.date);
+		*/
+		console.log(objFinder);
+
+		var objReplacer={ $set: {
 			information: 'Record',
+			count: parseInt(stringDate.substr(8,2)),
 			time: counter.date_time,
 			date: dateS,
+			month: stringDate.substr(5,2),
 			status: 'MEAL',
 			amount: 'DEFAULT'
-		};
-		x.collection(counter.regis).updateOne(objFinder, objReplacer, function(err) {
-			console.log('Error occured while updating an obj document in mongodb');
+		}};console.log(objReplacer);
+		x.collection(counter.regis).updateOne(objFinder, objReplacer, function(err, res) {
+			if(err) {console.log('Error occured while updating an obj document in mongodb');
+			throw err;}
+			else{
+				console.log('One obj updated');
+			}
 		});
 	});
 });
