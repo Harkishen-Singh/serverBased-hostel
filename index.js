@@ -7,6 +7,7 @@ var count=0, port=1133, input={
 	pass:"",
 	check:false
 };
+var initializer = require('./accountInitializer.js');
 /*
 var request=require('request'), obj={reg:"", pass:""};
 request({
@@ -55,6 +56,7 @@ app.get('/signup_submit', function(req, res){
 		information:"User Login Information",
 		name:name_combined,
 		email:req.query.user_email,
+		dateOfSignUp: req.query.signDate,
 		password:req.query.user_password,
 		reg_no:req.query.user_reg,
 		mobile:req.query.user_mobile,
@@ -73,6 +75,7 @@ app.get('/entry', admin_page);
 function admin_page(req, res){
 	res.sendFile(__dirname+"/html/counter.html");
 }
+/*
 app.get('/addRecord', function(req,res){
 	counter={
 		regis:req.query.counter_regis,
@@ -83,6 +86,7 @@ app.get('/addRecord', function(req,res){
 	var insertion={
 		information:"Record",
 		time: counter.date_time,
+		status: ''
 		amount: "DEFAULT"
 	}
 	mongo.connect(url,function(err,d){
@@ -96,6 +100,47 @@ app.get('/addRecord', function(req,res){
 		d.close();
 	});
 	admin_page(req, res);
+});*/
+
+
+app.get('/addRecord', function(req, res) {
+	counter= { regis: req.query.counter_regis, date_time: req.query.counter_date };
+	mongo.connect(url, function(err, data) {
+		var x= data.db('BH_software');
+		var stringDate = counter.date_time.toString();
+		var l=stringDate.length; var dateS=stringDate.substr(8,2);
+		var objFinder = {
+			information: 'Record',
+			count: parseInt(stringDate.substr(8,2)),
+			time: '',
+			date: dateS,
+			month: stringDate.substr(5,2),
+			status: 'NA',
+			amount: 'DEFAULT'
+		};
+		/*	console.log('objFinder.count is '+ objFinder.count);
+			console.log('objFinder.month is '+ objFinder.month);
+			console.log('objFinder.date is '+ objFinder.date);
+		*/
+		console.log(objFinder);
+
+		var objReplacer={ $set: {
+			information: 'Record',
+			count: parseInt(stringDate.substr(8,2)),
+			time: counter.date_time,
+			date: dateS,
+			month: stringDate.substr(5,2),
+			status: 'MEAL',
+			amount: 'DEFAULT'
+		}};console.log(objReplacer);
+		x.collection(counter.regis).updateOne(objFinder, objReplacer, function(err, res) {
+			if(err) {console.log('Error occured while updating an obj document in mongodb');
+			throw err;}
+			else{
+				console.log('One obj updated');
+			}
+		});
+	});
 });
 
 
@@ -106,6 +151,9 @@ function database_mongoDB_creations(){
 		temp.collection(signup.reg_no).insertOne(signup, function(err){
 			if(err) console.log('Error occured while creating a collection named '+signup.name);
 		});
+		console.log('this is the month ' + (signup.dateOfSignUp).substr(5,2));
+		var m=(signup.dateOfSignUp).substr(5,2);
+		initializer(signup.reg_no, m.toString());
 		database.close();
 	});
 }
@@ -140,7 +188,7 @@ function database_mongoDB_operations(req, res){
 				if(result[0].password==input.pass){
 					input.check=true;
 					console.log('Account collection connected..!');
-					res.render(__dirname+"/dashboard.ejs", {
+					res.render(__dirname+"/embeded-JS/dashboard.ejs", {
 						name:result[0].name, reg_no:result[0].reg_no, email:result[0].email
 					});
 					Details_On_User();
