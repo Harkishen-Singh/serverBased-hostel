@@ -12,7 +12,11 @@ function init(regis) {
 	mongo.connect(url, function(e,d) {
 		for(var i=1; i<=31;i++) { // initialsing the days in that present month to NA status 
 			obj.date = i.toString();
+			if(obj.date.length == 1) {
+				obj.date = '0'+obj.date;
+			}
 			d.collection(regis).insertOne(obj);
 		}
 	});
 }
+module.exports = init ;

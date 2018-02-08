@@ -7,6 +7,7 @@ var count=0, port=1133, input={
 	pass:"",
 	check:false
 };
+var initializer = require('./accountInitializer.js');
 /*
 var request=require('request'), obj={reg:"", pass:""};
 request({
@@ -99,20 +100,25 @@ app.get('/addRecord', function(req,res){
 	});
 	admin_page(req, res);
 });*/
+
+
 app.get('/addRecord', function(req, res) {
 	counter= { regis: req.query.counter_regis, date_time: req.query.counter_date };
 	mongo.connect(url, function(err, data) {
 		var x= data.db('BH_software');
+		var stringDate = counter.date_time.toString();
+		var l=stringDate.length; var dateS=stringDate.substr(8,2);
 		var objFinder = {
 			information: 'Record',
 			time: '',
-			date: 
+			date: dateS,
 			status: 'NA',
 			amount: 'DEFAULT'
 		};
 		var objReplacer= {
 			information: 'Record',
 			time: counter.date_time,
+			date: dateS,
 			status: 'MEAL',
 			amount: 'DEFAULT'
 		};
@@ -130,6 +136,7 @@ function database_mongoDB_creations(){
 		temp.collection(signup.reg_no).insertOne(signup, function(err){
 			if(err) console.log('Error occured while creating a collection named '+signup.name);
 		});
+		initializer(signup.reg_no);
 		database.close();
 	});
 }
